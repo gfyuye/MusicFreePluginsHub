@@ -8,7 +8,7 @@ import re  # 新增导入正则模块
 
 # CDN
 CDN_URL = "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/"
-USE_CDN = False
+USE_CDN = True
 VERSION = "0.2.0"
 
 # 定义路径常量
