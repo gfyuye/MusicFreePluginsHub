@@ -436,12 +436,30 @@ async function importMusicItem(urlLike) {
 
 // 获取在线歌词
 async function getLyric(musicItem) {
-    let res = await EAPI("/api/song/lyric", {
-        id: musicItem.id,
-        lv: -1,
-        kv: -1,
-        tv: -1
-    });
+    try {
+        const response = await axios.get("https://music.163.com/api/song/lyric", {
+            params: {
+                id: musicItem.id,
+                lv: -1,
+                tv: -1
+            },
+            headers: {
+                os: "pc"
+            }
+        });
+
+        return {
+            rawLrc: response.data.lrc?.lyric || '',
+            translation: response.data.tlyric?.lyric || ''
+        };
+    } catch (error) {
+        console.error("获取歌词时出错:", error.message);
+        return {
+            rawLrc: '',
+            translation: ''
+        };
+    }
+});
     return {
         /* 歌词URL */
         // lrc: "",
@@ -555,38 +573,62 @@ async function KUWO(musicItem, quality) {
 
 
 // 格式化歌曲评论
-function formatComment(_) {
+function formatComment(item) {
     return {
-        id: _.commentId,
-        // 用户名
-        nickName: _.user && _.user.nickname,
-        // 头像
-        avatar: _.user && _.user.avatarUrl,
-        // 评论内容
-        comment: _.content,
-        // 点赞数
-        like: _.likedCount,
-        // 评论时间
-        createAt: _.time,
-        // 地址
-        location: _.ipLocation && _.ipLocation.location,
-        // 回复
-        replies: (_.beReplied || []).map(formatComment),
-        /* 其他参数 */
-        content: 6
+        id: item.commentId,
+        nickName: item.user.nickname,
+        avatar: item.user.avatarUrl,
+        comment: item.content,
+        like: item.likedCount,
+        createAt: item.time,
+        location: item.ipLocation ? item.ipLocation.location : undefined
     };
+};
 }
 // 获取歌曲评论
-async function getMusicComments(musicItem, page = 1) {
-    let res = (await EAPI("/api/v2/resource/comments", {
-        "threadId": "R_SO_4_" + musicItem.id,
-        "cursor": "20",
-        "sortType": "1",
-        "pageNo": page,
-        "pageSize": pageSize + "",
-        "parentCommentld": "0",
-        "showlnner": false
-    })).data;
+async function getMusicComments(musicItem, limit = 20) {
+    const url = "https://zm.armoe.cn/comment/music";
+    let allComments = [];
+    let offset = 0;
+    let before = null;
+    let isEnd = false;
+
+    while (!isEnd) {
+        const params = {
+            id: musicItem.id,
+            limit: limit,
+            offset: offset,
+            before: before
+        };
+
+        try {
+            const response = await axios.get(url, { params });
+            const result = response.data;
+
+            if (!result || !result.comments) {
+                throw new Error("评论数据为空或获取失败");
+            }
+
+            const comments = result.comments.map(formatComment);
+            allComments = [...allComments, ...comments];
+            isEnd = result.more === false;
+
+            if (!isEnd) {
+                before = comments[comments.length - 1]?.createAt;
+                offset += limit;
+            }
+        } catch (error) {
+            console.error("获取评论时出错:", error.message);
+            break;
+        }
+    }
+
+    return {
+        isEnd,
+        total: allComments.length,
+        data: allComments
+    };
+})).data;
     return {
         isEnd: res.hasMore != true,
         data: res.comments.map(formatComment)
@@ -615,7 +657,7 @@ module.exports = {
     author: '反馈Q群@365976134',
     version: "2025.01.22",
     appVersion: ">0.4.0-alpha.0",
-    srcUrl: "https://raw.githubusercontent.com/ThomasBy2025/musicfree/refs/heads/main/plugins/wy.js",
+    srcUrl: "https://testingcf.jsdelivr.net/gh/Lmlanmei64/MusicFreePlugins@master/plugins/wy.js",
     cacheControl: "no-store",
     hints: {
         importMusicSheet: [
