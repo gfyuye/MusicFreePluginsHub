@@ -127,8 +127,8 @@
       "version": "0.0.2"
     },
     {
-      "name": "W电台",
-      "url": "https://mf.marketingmaster.bid/js/W电台.js",
+      "name": "W电台_1",
+      "url": "https://mf.marketingmaster.bid/js/W电台_1.js",
       "version": "0.0.2"
     },
     {
@@ -142,13 +142,13 @@
       "version": "0.1.0"
     },
     {
-      "name": "酷我_1",
-      "url": "https://mf.marketingmaster.bid/js/酷我_1.js",
+      "name": "酷我",
+      "url": "https://mf.marketingmaster.bid/js/酷我.js",
       "version": "0.1.0"
     },
     {
-      "name": "酷我",
-      "url": "https://mf.marketingmaster.bid/js/酷我.js",
+      "name": "酷我_1",
+      "url": "https://mf.marketingmaster.bid/js/酷我_1.js",
       "version": "0.1.0"
     },
     {
@@ -162,13 +162,18 @@
       "version": "0.1.0"
     },
     {
-      "name": "W电台_1",
-      "url": "https://mf.marketingmaster.bid/js/W电台_1.js",
+      "name": "W电台",
+      "url": "https://mf.marketingmaster.bid/js/W电台.js",
       "version": "0.0.2"
     },
     {
       "name": "W音乐",
       "url": "https://mf.marketingmaster.bid/js/W音乐.js",
+      "version": "0.2.3"
+    },
+    {
+      "name": "W音乐2",
+      "url": "https://mf.marketingmaster.bid/js/W音乐2.js",
       "version": "0.2.3"
     }
   ]
