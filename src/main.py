@@ -12,7 +12,7 @@ VERSION = "0.2.0"
 
 # 定义路径常量
 BASE_DIR = Path(__file__).parent.parent  # 项目根目录
-DATA_DIR = BASE_DIR / "data"  # 数据目录
+DATA_DIR = BASE_DIR / "src/data"  # 数据目录
 DATA_DIR.mkdir(exist_ok=True)
 DATA_JSON_PATH = DATA_DIR / "origins.json"
 
