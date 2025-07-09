@@ -16,7 +16,7 @@ DATA_DIR = BASE_DIR / "data"  # 数据目录
 DATA_DIR.mkdir(exist_ok=True)
 DATA_JSON_PATH = DATA_DIR / "origins.json"
 
-JS_DIR = BASE_DIR / "js"  # JS文件目录
+JS_DIR = BASE_DIR / "dist/js"  # JS文件目录
 JS_DIR.mkdir(exist_ok=True)
 
 DIST_DIR = BASE_DIR / "dist"  # 输出目录
