@@ -4,6 +4,7 @@ from pathlib import Path
 from loguru import logger
 from httpx import AsyncClient
 import re
+import shutil
 
 # CDN
 CDN_URL = "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/js/"
@@ -12,11 +13,11 @@ VERSION = "0.2.0"
 
 # 定义路径常量
 BASE_DIR = Path(__file__).parent.parent  # 项目根目录
-DATA_DIR = BASE_DIR / "src/data"  # 数据目录
+DATA_DIR = BASE_DIR / "data"  # 数据目录
 DATA_DIR.mkdir(exist_ok=True)
 DATA_JSON_PATH = DATA_DIR / "origins.json"
 
-JS_DIR = BASE_DIR / "dist/js"  # JS文件目录
+JS_DIR = BASE_DIR / "js"  # JS文件目录
 JS_DIR.mkdir(exist_ok=True)
 
 DIST_DIR = BASE_DIR / "dist"  # 输出目录
@@ -68,35 +69,32 @@ async def fetch_sub_plugins(url: str, client: AsyncClient) -> list:
 
 
 async def fetch_plugins(plugins: list, client: AsyncClient) -> tuple[list, list]:
-    """获取有效的插件列表和原始链接
+    """获取有效的插件列表和原始链接插件列表
 
     Args:
         plugins: 待处理的插件列表
         client: HTTP客户端实例
 
     Returns:
-        (有效的插件列表, 原始链接列表)
+        (有效的插件列表, 原始链接插件列表)
     """
     seen_urls = set()  # 用于去重
     name_count = {}  # 用于统计重名插件
-    original_urls = []  # 存储所有原始链接
+    original_plugins = []  # 存储原始链接的插件列表
 
-    async def download_and_process_plugin(plugin: dict) -> tuple[bool, dict]:
+    async def download_and_process_plugin(plugin: dict) -> tuple[bool, dict, dict]:
         """下载插件并处理URL
 
         Args:
             plugin: 单个插件信息
 
         Returns:
-            (成功标志, 处理后的插件信息)
+            (成功标志, 处理后的插件信息, 原始链接插件信息)
         """
         url = plugin["url"]
         if url in seen_urls:
-            return False, plugin
+            return False, plugin, plugin.copy()
         seen_urls.add(url)
-        
-        # 保存原始链接
-        original_urls.append(url)
 
         for retry in range(MAX_RETRIES):
             try:
@@ -124,7 +122,7 @@ async def fetch_plugins(plugins: list, client: AsyncClient) -> tuple[list, list]
                 output_path = JS_DIR / filename
                 output_path.write_text(response.text, encoding='utf-8')
                 
-                # 更新插件信息
+                # 更新插件信息 - 处理后版本
                 new_plugin = plugin.copy()
                 new_plugin["name"] = plugin_name
                 
@@ -135,15 +133,21 @@ async def fetch_plugins(plugins: list, client: AsyncClient) -> tuple[list, list]
                     # 使用相对路径指向 js 目录
                     new_plugin["url"] = f"js/{filename}"
 
+                # 创建原始链接插件信息 - 保持原始URL
+                original_plugin = plugin.copy()
+                original_plugin["name"] = plugin_name  # 使用相同的名称处理
+                # 保持原始URL不变
+                
                 logger.success(f"插件 {plugin_name} 下载成功: {output_path}")
-                return True, new_plugin
+                return True, new_plugin, original_plugin
 
             except Exception as e:
                 if retry == MAX_RETRIES - 1:
                     logger.error(
                         f"插件 {plugin.get('name', url)} 下载失败(重试{retry + 1}/{MAX_RETRIES}): {str(e)}"
                     )
-                    return False, plugin
+                    # 即使失败也返回原始插件信息
+                    return False, plugin, plugin.copy()
                 logger.warning(
                     f"插件 {plugin.get('name', url)} 下载失败(重试{retry + 1}/{MAX_RETRIES}): {str(e)}"
                 )
@@ -153,8 +157,17 @@ async def fetch_plugins(plugins: list, client: AsyncClient) -> tuple[list, list]
     tasks = [download_and_process_plugin(plugin) for plugin in plugins]
     results = await asyncio.gather(*tasks)
 
-    valid_plugins = [new_plugin for success, new_plugin in results if success]
-    return valid_plugins, original_urls
+    # 分离成功和失败的插件
+    valid_plugins = []
+    for success, new_plugin, original_plugin in results:
+        if success:
+            valid_plugins.append(new_plugin)
+            original_plugins.append(original_plugin)
+        else:
+            # 失败的插件也添加到原始插件列表，但标记为失败
+            original_plugins.append(original_plugin)
+
+    return valid_plugins, original_plugins
 
 
 async def load_origins() -> dict:
@@ -226,17 +239,24 @@ async def main():
     """主函数"""
     logger.info("开始执行插件更新任务...")
 
-    # 清空 js 目录中的 JS 文件
-    for js_file in JS_DIR.glob("*.js"):
-        js_file.unlink()
-    logger.info(f"已清空 {JS_DIR} 目录中的 JS 文件")
+    # 1. 清空 js 目录 - 更可靠的方法
+    try:
+        # 删除整个 js 目录并重新创建
+        if JS_DIR.exists():
+            shutil.rmtree(JS_DIR)
+            logger.info(f"已删除目录: {JS_DIR}")
+        JS_DIR.mkdir(exist_ok=True)
+        logger.info(f"已重新创建目录: {JS_DIR}")
+    except Exception as e:
+        logger.error(f"清空 js 目录失败: {str(e)}")
+        return
 
-    # 1. 加载配置
+    # 2. 加载配置
     origins = await load_origins()
     if not origins:
         return
 
-    # 2. 处理插件
+    # 3. 处理插件
     async with AsyncClient(timeout=REQUEST_TIMEOUT, follow_redirects=True) as client:
         # 收集所有插件
         all_plugins = await collect_plugins(origins, client)
@@ -246,23 +266,23 @@ async def main():
 
         # 下载和验证插件
         logger.info(f"开始下载和验证 {len(all_plugins)} 个插件...")
-        valid_plugins, original_urls = await fetch_plugins(all_plugins, client)
+        valid_plugins, original_plugins = await fetch_plugins(all_plugins, client)
 
         if not valid_plugins:
             logger.error("没有有效的插件")
             return
 
         logger.info(f"成功验证 {len(valid_plugins)} 个插件")
-        logger.info(f"收集到 {len(original_urls)} 个原始链接")
+        logger.info(f"收集到 {len(original_plugins)} 个原始插件信息")
 
-    # 3. 保存结果
+    # 4. 保存结果
     # 保存 all.json 到 dist 目录 - 包含处理后的插件信息
     all_success = save_plugin_list(DIST_JSON_PATH, {"desc": VERSION, "plugins": valid_plugins})
     
-    # 保存 plugins.json 到 dist 目录 - 包含所有原始链接
+    # 保存 plugins.json 到 dist 目录 - 包含原始链接插件信息
     plugins_success = save_plugin_list(
         PLUGINS_JSON_PATH, 
-        {"desc": VERSION, "original_urls": original_urls}
+        {"desc": VERSION, "plugins": original_plugins}
     )
 
     if all_success and plugins_success:
