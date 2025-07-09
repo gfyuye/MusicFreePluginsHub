@@ -19,6 +19,8 @@ jobs:
         run: uv sync --all-extras --dev
 
       - name: Run Python Script
+        env:
+          CDN_URL: ${{ secrets.MusicFree_URL }}  # 从GitHub Secrets获取CDN URL
         run: uv run src/main.py
 
       - name: Commit and Push
