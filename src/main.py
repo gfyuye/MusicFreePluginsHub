@@ -4,6 +4,7 @@ from pathlib import Path
 from loguru import logger
 from httpx import AsyncClient
 import hashlib
+import re  # 新增导入正则模块
 
 # CDN
 CDN_URL = "https://musicfreepluginshub.2020818.xyz/"
@@ -17,13 +18,22 @@ DATA_JSON_PATH = DATA_DIR / "origins.json"
 
 DIST_DIR = Path(__file__).parent.parent / "dist"
 DIST_DIR.mkdir(exist_ok=True)
-DIST_JSON_PATH = DIST_DIR / "plugins.json"
+DIST_JSON_PATH = DIST_DIR / "all.json"  # 改为 all.json
 
 # 重试相关常量
 MAX_RETRIES = 3
 RETRY_DELAY = 1
 REQUEST_TIMEOUT = 10.0
-        
+
+# 新增：文件名清理函数
+def sanitize_filename(name: str) -> str:
+    """清理文件名，移除非法字符"""
+    # 移除特殊字符，只保留字母、数字、汉字、下划线和空格
+    cleaned = re.sub(r'[^\w\u4e00-\u9fff\s]', '', name)
+    # 替换空格为下划线
+    cleaned = cleaned.replace(' ', '_')
+    # 限制文件名长度
+    return cleaned[:50] if cleaned else "plugin"
 
 async def fetch_sub_plugins(url: str, client: AsyncClient) -> list:
     """从订阅源获取单个插件列表
@@ -88,38 +98,39 @@ async def fetch_plugins(plugins: list, client: AsyncClient) -> list:
                 # 计算 MD5
                 md5 = hashlib.md5(url.encode("utf-8")).hexdigest()
                 
-                # 处理 JS 文件内容，替换原始 URL 为 CDN URL
-                content = response.text
-                if USE_CDN:
-                    # 替换整个原始 GitHub URL 为 CDN URL
-                    original_url = url.replace('\\', '')  # 处理可能存在的转义字符
-                    cdn_url = f"{CDN_URL}{md5}.js"
-                    content = content.replace(original_url, cdn_url)
-
-                # 保存处理后的插件文件
-                output_path = DIST_DIR / f"{md5}.js"
-                output_path.write_text(content, encoding='utf-8')
-
-                # 处理插件信息
-                new_plugin = plugin.copy()
+                # 处理插件名称
                 name = plugin.get("name", url)
-                
                 # 替换敏感词
                 name = name.replace("网易云", "W").replace("QQ", "T")
-
+                
                 # 处理重名
                 if name in name_count:
                     name_count[name] += 1
-                    new_plugin["name"] = f"{name}_{name_count[name]}"
+                    plugin_name = f"{name}_{name_count[name]}"
                 else:
                     name_count[name] = 0
-                    new_plugin["name"] = name
-
-                # 使用 CDN 替换原始 URL
+                    plugin_name = name
+                
+                # 清理文件名
+                clean_name = sanitize_filename(plugin_name)
+                filename = f"{clean_name}.js"
+                
+                # 保存插件文件
+                output_path = DIST_DIR / filename
+                output_path.write_text(response.text, encoding='utf-8')
+                
+                # 更新插件信息
+                new_plugin = plugin.copy()
+                new_plugin["name"] = plugin_name
+                
+                # 使用 CDN 或直接使用文件名
                 if USE_CDN:
-                    new_plugin["url"] = f"{CDN_URL}{md5}.js"
+                    new_plugin["url"] = f"{CDN_URL}{filename}"
+                else:
+                    # 使用相对路径，只包含文件名
+                    new_plugin["url"] = filename
 
-                logger.success(f"插件 {new_plugin['name']} 下载成功")
+                logger.success(f"插件 {plugin_name} 下载成功: {filename}")
                 return True, new_plugin
 
             except Exception as e:
