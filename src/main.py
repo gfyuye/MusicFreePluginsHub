@@ -5,10 +5,12 @@ from loguru import logger
 from httpx import AsyncClient
 import re
 import shutil
+import os  # 新增导入os模块
 
-# CDN
-CDN_URL = "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/js/"
-USE_CDN = True
+# 从环境变量获取CDN URL，默认为空
+CDN_URL = os.environ.get("MusicFree_URL", "")
+# 如果设置了CDN_URL，则启用CDN
+USE_CDN = bool(CDN_URL)
 VERSION = "0.2.0"
 
 # 定义路径常量
@@ -16,6 +18,7 @@ BASE_DIR = Path(__file__).parent.parent  # 项目根目录
 DATA_DIR = BASE_DIR / "src/data"  # 数据目录
 DATA_DIR.mkdir(exist_ok=True)
 DATA_JSON_PATH = DATA_DIR / "origins.json"
+
 
 DIST_DIR = BASE_DIR / "dist"  # 输出目录
 DIST_DIR.mkdir(exist_ok=True)
@@ -129,7 +132,9 @@ async def fetch_plugins(plugins: list, client: AsyncClient) -> tuple[list, list]
                 
                 # 使用 CDN 或直接使用相对路径
                 if USE_CDN:
-                    new_plugin["url"] = f"{CDN_URL}{filename}"
+                    # 确保CDN_URL以斜杠结尾
+                    cdn_base = CDN_URL.rstrip('/') + '/'
+                    new_plugin["url"] = f"{cdn_base}{filename}"
                 else:
                     # 使用相对路径指向 js 目录
                     new_plugin["url"] = f"js/{filename}"
@@ -239,6 +244,9 @@ async def collect_plugins(origins: dict, client: AsyncClient) -> list:
 async def main():
     """主函数"""
     logger.info("开始执行插件更新任务...")
+    logger.info(f"CDN设置: {'启用' if USE_CDN else '禁用'}")
+    if USE_CDN:
+        logger.info(f"CDN地址: {CDN_URL}")
 
     # 1. 清空 js 目录 - 更可靠的方法
     try:
