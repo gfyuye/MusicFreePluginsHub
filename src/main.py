@@ -17,11 +17,12 @@ DATA_DIR = BASE_DIR / "data"  # 数据目录
 DATA_DIR.mkdir(exist_ok=True)
 DATA_JSON_PATH = DATA_DIR / "origins.json"
 
-JS_DIR = BASE_DIR / "js"  # JS文件目录
-JS_DIR.mkdir(exist_ok=True)
-
 DIST_DIR = BASE_DIR / "dist"  # 输出目录
 DIST_DIR.mkdir(exist_ok=True)
+
+JS_DIR = DIST_DIR / "js"  # JS文件目录
+JS_DIR.mkdir(exist_ok=True)
+
 DIST_JSON_PATH = DIST_DIR / "all.json"  # 主插件列表
 PLUGINS_JSON_PATH = DIST_DIR / "plugins.json"  # 原始链接列表
 
