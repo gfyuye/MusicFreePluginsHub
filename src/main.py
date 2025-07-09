@@ -7,7 +7,7 @@ import hashlib
 import re  # 新增导入正则模块
 
 # CDN
-CDN_URL = "https://musicfreepluginshub.2020818.xyz/"
+CDN_URL = "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/"
 USE_CDN = False
 VERSION = "0.2.0"
 
