@@ -3,172 +3,172 @@
   "plugins": [
     {
       "name": "Audiomack",
-      "url": "Audiomack.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/Audiomack.js",
       "version": "0.0.2"
     },
     {
       "name": "歌词网",
-      "url": "歌词网.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/歌词网.js",
       "version": "0.0.0"
     },
     {
       "name": "歌词千寻",
-      "url": "歌词千寻.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/歌词千寻.js",
       "version": "0.0.0"
     },
     {
       "name": "Navidrome",
-      "url": "Navidrome.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/Navidrome.js",
       "version": "0.0.0"
     },
     {
       "name": "suno",
-      "url": "suno.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/suno.js",
       "version": "0.0.0"
     },
     {
       "name": "udio",
-      "url": "udio.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/udio.js",
       "version": "0.0.0"
     },
     {
       "name": "猫耳FM",
-      "url": "猫耳FM.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/猫耳FM.js",
       "version": "0.1.4"
     },
     {
       "name": "快手",
-      "url": "快手.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/快手.js",
       "version": "0.0.2"
     },
     {
       "name": "音悦台",
-      "url": "音悦台.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/音悦台.js",
       "version": "0.0.1"
     },
     {
       "name": "Youtube",
-      "url": "Youtube.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/Youtube.js",
       "version": "0.0.1"
     },
     {
       "name": "bilibili",
-      "url": "bilibili.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/bilibili.js",
       "version": "0.2.3"
     },
     {
       "name": "WebDAV",
-      "url": "WebDAV.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/WebDAV.js",
       "version": "0.0.2"
     },
     {
       "name": "歌曲宝",
-      "url": "歌曲宝.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/歌曲宝.js",
       "version": "0.0.5"
     },
     {
       "name": "书音FM",
-      "url": "书音FM.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/书音FM.js",
       "version": "0.3.6"
     },
     {
       "name": "六月听书",
-      "url": "六月听书.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/六月听书.js",
       "version": "0.1.5"
     },
     {
       "name": "果核音乐",
-      "url": "果核音乐.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/果核音乐.js",
       "version": "0.0.1"
     },
     {
       "name": "5sing",
-      "url": "5sing.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/5sing.js",
       "version": "0.0.3"
     },
     {
       "name": "好听轻音乐",
-      "url": "好听轻音乐.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/好听轻音乐.js",
       "version": "0.1.0"
     },
     {
       "name": "爱听",
-      "url": "爱听.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/爱听.js",
       "version": "0.0.6"
     },
     {
       "name": "种子",
-      "url": "种子.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/种子.js",
       "version": "0.1.0"
     },
     {
       "name": "小秋音乐",
-      "url": "小秋音乐.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/小秋音乐.js",
       "version": "0.0.2"
     },
     {
       "name": "小枸音乐",
-      "url": "小枸音乐.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/小枸音乐.js",
       "version": "0.0.2"
     },
     {
       "name": "小芸音乐",
-      "url": "小芸音乐.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/小芸音乐.js",
       "version": "0.0.2"
     },
     {
       "name": "小蜜音乐",
-      "url": "小蜜音乐.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/小蜜音乐.js",
       "version": "0.0.2"
     },
     {
       "name": "小蜗音乐",
-      "url": "小蜗音乐.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/小蜗音乐.js",
       "version": "0.0.2"
     },
     {
-      "name": "W电台_1",
-      "url": "W电台_1.js",
+      "name": "W电台",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/W电台.js",
       "version": "0.0.2"
     },
     {
       "name": "酷狗",
-      "url": "酷狗.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/酷狗.js",
       "version": "0.1.4"
     },
     {
       "name": "网易",
-      "url": "网易.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/网易.js",
       "version": "0.1.0"
     },
     {
       "name": "酷我",
-      "url": "酷我.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/酷我.js",
       "version": "0.1.0"
     },
     {
       "name": "酷我_1",
-      "url": "酷我_1.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/酷我_1.js",
       "version": "0.1.0"
     },
     {
       "name": "qq",
-      "url": "qq.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/qq.js",
       "version": "0.1.0"
     },
     {
       "name": "mg",
-      "url": "mg.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/mg.js",
       "version": "0.1.0"
     },
     {
-      "name": "W电台",
-      "url": "W电台.js",
+      "name": "W电台_1",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/W电台_1.js",
       "version": "0.0.2"
     },
     {
       "name": "W音乐",
-      "url": "W音乐.js",
+      "url": "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/W音乐.js",
       "version": "0.2.3"
     }
   ]
