@@ -3,29 +3,33 @@ import ujson as json
 from pathlib import Path
 from loguru import logger
 from httpx import AsyncClient
-import hashlib
-import re  # 新增导入正则模块
+import re
 
 # CDN
-CDN_URL = "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/dist/"
+CDN_URL = "https://raw.githubusercontent.com/gfyuye/MusicFreePluginsHub/refs/heads/main/js/"
 USE_CDN = True
 VERSION = "0.2.0"
 
 # 定义路径常量
-DATA_DIR = Path(__file__).parent / "data"
+BASE_DIR = Path(__file__).parent.parent  # 项目根目录
+DATA_DIR = BASE_DIR / "data"  # 数据目录
 DATA_DIR.mkdir(exist_ok=True)
 DATA_JSON_PATH = DATA_DIR / "origins.json"
 
-DIST_DIR = Path(__file__).parent.parent / "dist"
+JS_DIR = BASE_DIR / "js"  # JS文件目录
+JS_DIR.mkdir(exist_ok=True)
+
+DIST_DIR = BASE_DIR / "dist"  # 输出目录
 DIST_DIR.mkdir(exist_ok=True)
-DIST_JSON_PATH = DIST_DIR / "all.json"  # 改为 all.json
+DIST_JSON_PATH = DIST_DIR / "all.json"  # 主插件列表
+PLUGINS_JSON_PATH = DIST_DIR / "plugins.json"  # 原始链接列表
 
 # 重试相关常量
 MAX_RETRIES = 3
 RETRY_DELAY = 1
 REQUEST_TIMEOUT = 10.0
 
-# 新增：文件名清理函数
+# 文件名清理函数
 def sanitize_filename(name: str) -> str:
     """清理文件名，移除非法字符"""
     # 移除特殊字符，只保留字母、数字、汉字、下划线和空格
@@ -63,18 +67,19 @@ async def fetch_sub_plugins(url: str, client: AsyncClient) -> list:
             await asyncio.sleep(RETRY_DELAY)
 
 
-async def fetch_plugins(plugins: list, client: AsyncClient) -> list:
-    """获取有效的插件列表
+async def fetch_plugins(plugins: list, client: AsyncClient) -> tuple[list, list]:
+    """获取有效的插件列表和原始链接
 
     Args:
         plugins: 待处理的插件列表
         client: HTTP客户端实例
 
     Returns:
-        有效的插件列表
+        (有效的插件列表, 原始链接列表)
     """
     seen_urls = set()  # 用于去重
     name_count = {}  # 用于统计重名插件
+    original_urls = []  # 存储所有原始链接
 
     async def download_and_process_plugin(plugin: dict) -> tuple[bool, dict]:
         """下载插件并处理URL
@@ -89,15 +94,15 @@ async def fetch_plugins(plugins: list, client: AsyncClient) -> list:
         if url in seen_urls:
             return False, plugin
         seen_urls.add(url)
+        
+        # 保存原始链接
+        original_urls.append(url)
 
         for retry in range(MAX_RETRIES):
             try:
                 response = await client.get(url, timeout=REQUEST_TIMEOUT)
                 response.raise_for_status()
 
-                # 计算 MD5
-                md5 = hashlib.md5(url.encode("utf-8")).hexdigest()
-                
                 # 处理插件名称
                 name = plugin.get("name", url)
                 # 替换敏感词
@@ -115,22 +120,22 @@ async def fetch_plugins(plugins: list, client: AsyncClient) -> list:
                 clean_name = sanitize_filename(plugin_name)
                 filename = f"{clean_name}.js"
                 
-                # 保存插件文件
-                output_path = DIST_DIR / filename
+                # 保存插件文件到 js 目录
+                output_path = JS_DIR / filename
                 output_path.write_text(response.text, encoding='utf-8')
                 
                 # 更新插件信息
                 new_plugin = plugin.copy()
                 new_plugin["name"] = plugin_name
                 
-                # 使用 CDN 或直接使用文件名
+                # 使用 CDN 或直接使用相对路径
                 if USE_CDN:
                     new_plugin["url"] = f"{CDN_URL}{filename}"
                 else:
-                    # 使用相对路径，只包含文件名
-                    new_plugin["url"] = filename
+                    # 使用相对路径指向 js 目录
+                    new_plugin["url"] = f"js/{filename}"
 
-                logger.success(f"插件 {plugin_name} 下载成功: {filename}")
+                logger.success(f"插件 {plugin_name} 下载成功: {output_path}")
                 return True, new_plugin
 
             except Exception as e:
@@ -148,7 +153,8 @@ async def fetch_plugins(plugins: list, client: AsyncClient) -> list:
     tasks = [download_and_process_plugin(plugin) for plugin in plugins]
     results = await asyncio.gather(*tasks)
 
-    return [new_plugin for success, new_plugin in results if success]
+    valid_plugins = [new_plugin for success, new_plugin in results if success]
+    return valid_plugins, original_urls
 
 
 async def load_origins() -> dict:
@@ -165,24 +171,25 @@ async def load_origins() -> dict:
         return {"sources": [], "singles": []}
 
 
-async def save_results(results: dict) -> bool:
-    """保存结果到文件
+def save_plugin_list(file_path: Path, data: dict) -> bool:
+    """保存插件列表到文件
 
     Args:
-        results: 要保存的结果数据
+        file_path: 文件路径
+        data: 要保存的数据
 
     Returns:
         保存是否成功
     """
     try:
-        with open(DIST_JSON_PATH, "w", encoding="utf-8") as file:
-            json_str = json.dumps(results, ensure_ascii=False, indent=2)
+        with open(file_path, "w", encoding="utf-8") as file:
+            json_str = json.dumps(data, ensure_ascii=False, indent=2)
             json_str = json_str.replace("\\/", "/")
             file.write(json_str)
-        logger.success(f"插件列表已保存至: {DIST_JSON_PATH}")
+        logger.success(f"文件已保存至: {file_path}")
         return True
     except Exception as e:
-        logger.error(f"保存结果文件失败: {str(e)}")
+        logger.error(f"保存文件 {file_path} 失败: {str(e)}")
         return False
 
 
@@ -219,10 +226,10 @@ async def main():
     """主函数"""
     logger.info("开始执行插件更新任务...")
 
-    # 清空 dist 目录中的 JS 文件
-    for js_file in DIST_DIR.glob("*.js"):
+    # 清空 js 目录中的 JS 文件
+    for js_file in JS_DIR.glob("*.js"):
         js_file.unlink()
-    logger.info("已清空 dist 目录中的 JS 文件")
+    logger.info(f"已清空 {JS_DIR} 目录中的 JS 文件")
 
     # 1. 加载配置
     origins = await load_origins()
@@ -239,16 +246,26 @@ async def main():
 
         # 下载和验证插件
         logger.info(f"开始下载和验证 {len(all_plugins)} 个插件...")
-        valid_plugins = await fetch_plugins(all_plugins, client)
+        valid_plugins, original_urls = await fetch_plugins(all_plugins, client)
 
         if not valid_plugins:
             logger.error("没有有效的插件")
             return
 
         logger.info(f"成功验证 {len(valid_plugins)} 个插件")
+        logger.info(f"收集到 {len(original_urls)} 个原始链接")
 
     # 3. 保存结果
-    if await save_results({"desc": VERSION, "plugins": valid_plugins}):
+    # 保存 all.json 到 dist 目录 - 包含处理后的插件信息
+    all_success = save_plugin_list(DIST_JSON_PATH, {"desc": VERSION, "plugins": valid_plugins})
+    
+    # 保存 plugins.json 到 dist 目录 - 包含所有原始链接
+    plugins_success = save_plugin_list(
+        PLUGINS_JSON_PATH, 
+        {"desc": VERSION, "original_urls": original_urls}
+    )
+
+    if all_success and plugins_success:
         logger.success(f"任务完成! 共更新 {len(valid_plugins)} 个插件")
 
 
