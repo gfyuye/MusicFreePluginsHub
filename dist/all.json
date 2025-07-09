@@ -3,172 +3,172 @@
   "plugins": [
     {
       "name": "Audiomack",
-      "url": "https://mf.marketingmaster.bid/Audiomack.js",
+      "url": "https://mf.marketingmaster.bid/js/Audiomack.js",
       "version": "0.0.2"
     },
     {
       "name": "歌词网",
-      "url": "https://mf.marketingmaster.bid/歌词网.js",
+      "url": "https://mf.marketingmaster.bid/js/歌词网.js",
       "version": "0.0.0"
     },
     {
       "name": "歌词千寻",
-      "url": "https://mf.marketingmaster.bid/歌词千寻.js",
+      "url": "https://mf.marketingmaster.bid/js/歌词千寻.js",
       "version": "0.0.0"
     },
     {
       "name": "Navidrome",
-      "url": "https://mf.marketingmaster.bid/Navidrome.js",
+      "url": "https://mf.marketingmaster.bid/js/Navidrome.js",
       "version": "0.0.0"
     },
     {
       "name": "suno",
-      "url": "https://mf.marketingmaster.bid/suno.js",
+      "url": "https://mf.marketingmaster.bid/js/suno.js",
       "version": "0.0.0"
     },
     {
       "name": "udio",
-      "url": "https://mf.marketingmaster.bid/udio.js",
+      "url": "https://mf.marketingmaster.bid/js/udio.js",
       "version": "0.0.0"
     },
     {
       "name": "猫耳FM",
-      "url": "https://mf.marketingmaster.bid/猫耳FM.js",
+      "url": "https://mf.marketingmaster.bid/js/猫耳FM.js",
       "version": "0.1.4"
     },
     {
       "name": "快手",
-      "url": "https://mf.marketingmaster.bid/快手.js",
+      "url": "https://mf.marketingmaster.bid/js/快手.js",
       "version": "0.0.2"
     },
     {
       "name": "音悦台",
-      "url": "https://mf.marketingmaster.bid/音悦台.js",
+      "url": "https://mf.marketingmaster.bid/js/音悦台.js",
       "version": "0.0.1"
     },
     {
       "name": "Youtube",
-      "url": "https://mf.marketingmaster.bid/Youtube.js",
+      "url": "https://mf.marketingmaster.bid/js/Youtube.js",
       "version": "0.0.1"
     },
     {
       "name": "bilibili",
-      "url": "https://mf.marketingmaster.bid/bilibili.js",
+      "url": "https://mf.marketingmaster.bid/js/bilibili.js",
       "version": "0.2.3"
     },
     {
       "name": "WebDAV",
-      "url": "https://mf.marketingmaster.bid/WebDAV.js",
+      "url": "https://mf.marketingmaster.bid/js/WebDAV.js",
       "version": "0.0.2"
     },
     {
       "name": "歌曲宝",
-      "url": "https://mf.marketingmaster.bid/歌曲宝.js",
+      "url": "https://mf.marketingmaster.bid/js/歌曲宝.js",
       "version": "0.0.5"
     },
     {
       "name": "书音FM",
-      "url": "https://mf.marketingmaster.bid/书音FM.js",
+      "url": "https://mf.marketingmaster.bid/js/书音FM.js",
       "version": "0.3.6"
     },
     {
       "name": "六月听书",
-      "url": "https://mf.marketingmaster.bid/六月听书.js",
+      "url": "https://mf.marketingmaster.bid/js/六月听书.js",
       "version": "0.1.5"
     },
     {
       "name": "果核音乐",
-      "url": "https://mf.marketingmaster.bid/果核音乐.js",
+      "url": "https://mf.marketingmaster.bid/js/果核音乐.js",
       "version": "0.0.1"
     },
     {
       "name": "5sing",
-      "url": "https://mf.marketingmaster.bid/5sing.js",
+      "url": "https://mf.marketingmaster.bid/js/5sing.js",
       "version": "0.0.3"
     },
     {
       "name": "好听轻音乐",
-      "url": "https://mf.marketingmaster.bid/好听轻音乐.js",
+      "url": "https://mf.marketingmaster.bid/js/好听轻音乐.js",
       "version": "0.1.0"
     },
     {
       "name": "爱听",
-      "url": "https://mf.marketingmaster.bid/爱听.js",
+      "url": "https://mf.marketingmaster.bid/js/爱听.js",
       "version": "0.0.6"
     },
     {
       "name": "种子",
-      "url": "https://mf.marketingmaster.bid/种子.js",
+      "url": "https://mf.marketingmaster.bid/js/种子.js",
       "version": "0.1.0"
     },
     {
       "name": "小秋音乐",
-      "url": "https://mf.marketingmaster.bid/小秋音乐.js",
+      "url": "https://mf.marketingmaster.bid/js/小秋音乐.js",
       "version": "0.0.2"
     },
     {
       "name": "小枸音乐",
-      "url": "https://mf.marketingmaster.bid/小枸音乐.js",
+      "url": "https://mf.marketingmaster.bid/js/小枸音乐.js",
       "version": "0.0.2"
     },
     {
       "name": "小芸音乐",
-      "url": "https://mf.marketingmaster.bid/小芸音乐.js",
+      "url": "https://mf.marketingmaster.bid/js/小芸音乐.js",
       "version": "0.0.2"
     },
     {
       "name": "小蜜音乐",
-      "url": "https://mf.marketingmaster.bid/小蜜音乐.js",
+      "url": "https://mf.marketingmaster.bid/js/小蜜音乐.js",
       "version": "0.0.2"
     },
     {
       "name": "小蜗音乐",
-      "url": "https://mf.marketingmaster.bid/小蜗音乐.js",
+      "url": "https://mf.marketingmaster.bid/js/小蜗音乐.js",
       "version": "0.0.2"
     },
     {
-      "name": "W电台_1",
-      "url": "https://mf.marketingmaster.bid/W电台_1.js",
+      "name": "W电台",
+      "url": "https://mf.marketingmaster.bid/js/W电台.js",
       "version": "0.0.2"
     },
     {
       "name": "酷狗",
-      "url": "https://mf.marketingmaster.bid/酷狗.js",
+      "url": "https://mf.marketingmaster.bid/js/酷狗.js",
       "version": "0.1.4"
     },
     {
       "name": "网易",
-      "url": "https://mf.marketingmaster.bid/网易.js",
+      "url": "https://mf.marketingmaster.bid/js/网易.js",
       "version": "0.1.0"
     },
     {
       "name": "酷我",
-      "url": "https://mf.marketingmaster.bid/酷我.js",
+      "url": "https://mf.marketingmaster.bid/js/酷我.js",
       "version": "0.1.0"
     },
     {
       "name": "酷我_1",
-      "url": "https://mf.marketingmaster.bid/酷我_1.js",
+      "url": "https://mf.marketingmaster.bid/js/酷我_1.js",
       "version": "0.1.0"
     },
     {
       "name": "qq",
-      "url": "https://mf.marketingmaster.bid/qq.js",
+      "url": "https://mf.marketingmaster.bid/js/qq.js",
       "version": "0.1.0"
     },
     {
       "name": "mg",
-      "url": "https://mf.marketingmaster.bid/mg.js",
+      "url": "https://mf.marketingmaster.bid/js/mg.js",
       "version": "0.1.0"
     },
     {
-      "name": "W电台",
-      "url": "https://mf.marketingmaster.bid/W电台.js",
+      "name": "W电台_1",
+      "url": "https://mf.marketingmaster.bid/js/W电台_1.js",
       "version": "0.0.2"
     },
     {
       "name": "W音乐",
-      "url": "https://mf.marketingmaster.bid/W音乐.js",
+      "url": "https://mf.marketingmaster.bid/js/W音乐.js",
       "version": "0.2.3"
     }
   ]
