@@ -8,7 +8,7 @@ import shutil
 import os  # 新增导入os模块
 
 # 从环境变量获取CDN URL，默认为空
-CDN_URL = os.environ.get("MusicFree_URL", "")
+CDN_URL = os.environ.get("CDN_URL", "")
 # 如果设置了CDN_URL，则启用CDN
 USE_CDN = bool(CDN_URL)
 VERSION = "0.2.0"
