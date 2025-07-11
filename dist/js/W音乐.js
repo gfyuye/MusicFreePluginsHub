@@ -437,7 +437,7 @@ async function importMusicItem(urlLike) {
 // 获取在线歌词
 async function getLyric(musicItem) {
     try {
-        const response = await axios.get("https://music.163.com/api/song/lyric", {
+        const response = await axios_1.get("https://music.163.com/api/song/lyric", {
             params: {
                 id: musicItem.id,
                 lv: -1,
@@ -459,21 +459,6 @@ async function getLyric(musicItem) {
             translation: ''
         };
     }
-});
-    return {
-        /* 歌词URL */
-        // lrc: "",
-        /* 纯文本歌词 */
-        rawLrc: res.lrc.lyric,
-        /* 没有时间戳的 纯文本歌词 */
-        // rawLrcTxt: "",
-        /* 纯文本格式的翻译 */
-        // translation: "",
-        /* 时间 s */
-        // time: 0,
-        /* 下标 */
-        // index: 0,
-    };
 }
 
 
@@ -573,17 +558,26 @@ async function KUWO(musicItem, quality) {
 
 
 // 格式化歌曲评论
-function formatComment(item) {
+function formatComment(_) {
     return {
-        id: item.commentId,
-        nickName: item.user.nickname,
-        avatar: item.user.avatarUrl,
-        comment: item.content,
-        like: item.likedCount,
-        createAt: item.time,
-        location: item.ipLocation ? item.ipLocation.location : undefined
+        id: _.commentId,
+        // 用户名
+        nickName: _.user && _.user.nickname,
+        // 头像
+        avatar: _.user && _.user.avatarUrl,
+        // 评论内容
+        comment: _.content,
+        // 点赞数
+        like: _.likedCount,
+        // 评论时间
+        createAt: _.time,
+        // 地址
+        location: _.ipLocation && _.ipLocation.location,
+        // 回复
+        replies: (_.beReplied || []).map(formatComment),
+        /* 其他参数 */
+        content: 6
     };
-};
 }
 // 获取歌曲评论
 async function getMusicComments(musicItem, limit = 20) {
@@ -602,7 +596,7 @@ async function getMusicComments(musicItem, limit = 20) {
         };
 
         try {
-            const response = await axios.get(url, { params });
+            const response = await axios_1.get(url, { params });
             const result = response.data;
 
             if (!result || !result.comments) {
@@ -628,11 +622,6 @@ async function getMusicComments(musicItem, limit = 20) {
         total: allComments.length,
         data: allComments
     };
-})).data;
-    return {
-        isEnd: res.hasMore != true,
-        data: res.comments.map(formatComment)
-    }
 }
 
 
