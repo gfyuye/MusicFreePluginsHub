@@ -12,10 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Rust
+      - name: Setup Rust with newer version
         uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           toolchain: stable
+          cache: false  # 禁用自动的 rust-cache
 
       - name: Setup Python environment
         uses: ./.github/actions/setup-python
