@@ -2,8 +2,8 @@ name: Scheduled Python Worker
 
 on:
   schedule:
-    - cron: "0 17 */2 * *" # 每隔两天 UTC 时间 17:00 (北京时间凌晨 1:00) 运行
-  workflow_dispatch: # 添加手动触发器
+    - cron: "0 17 */2 * *"
+  workflow_dispatch:
 
 jobs:
   run-worker:
@@ -11,6 +11,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup Rust
+        uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
 
       - name: Setup Python environment
         uses: ./.github/actions/setup-python
