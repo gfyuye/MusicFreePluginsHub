@@ -1,0 +1,105 @@
+name: 更新clash
+
+on:
+  schedule:
+    # 每6小时运行一次（UTC时间）
+    - cron: '0 */6 * * *'
+jobs:
+  update-clash:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+             
+    - name: Download and update clash.yaml
+      env:
+        CLASH_SUBSCRIPTION_URL: ${{ secrets.CLASH_SUBSCRIPTION_URL }}
+      run: |
+        echo "Downloading Clash subscription..."
+        
+        # 方法1: 使用curl下载并直接保存为clash.yaml
+        curl -L "$CLASH_SUBSCRIPTION_URL" -o dist/clash-temp.yaml
+        
+        # 检查是否下载成功
+        if [ ! -s dist/clash-temp.yaml ]; then
+          echo "Error: Downloaded file is empty!"
+          exit 1
+        fi
+        
+        echo "File downloaded. Size: $(wc -c < dist/clash-temp.yaml) bytes"
+        
+        # 检查是否是Base64编码（很多Clash订阅是Base64编码的）
+        # 如果文件开头不是YAML的典型结构，则可能是Base64
+        if ! head -n 1 dist/clash-temp.yaml | grep -q -E "^(proxies:|mixed-port:|port:|socks-port:)"; then
+          echo "Detected Base64 encoded config, decoding..."
+          base64 -d dist/clash-temp.yaml > dist/clash-temp2.yaml
+          
+          # 验证解码后的文件
+          if [ -s dist/clash-temp2.yaml ]; then
+            mv dist/clash-temp2.yaml dist/clash-temp.yaml
+            echo "Base64 decoded successfully"
+          else
+            echo "Warning: Base64 decoding may have failed, keeping original"
+            rm -f dist/clash-temp2.yaml
+          fi
+        fi
+        
+        # 备份旧的配置文件（可选）
+        if [ -f dist/clash.yaml ]; then
+          cp dist/clash.yaml dist/clash.yaml.backup
+          echo "Backup created: dist/clash.yaml.backup"
+        fi
+        
+        # 重命名为最终的clash.yaml
+        mv dist/clash-temp.yaml dist/clash.yaml
+        
+        # 验证新文件
+        if [ -s dist/clash.yaml ]; then
+          echo "Successfully updated dist/clash.yaml"
+          echo "New file size: $(wc -c < dist/clash.yaml) bytes"
+          
+          # 尝试检查是否是有效的YAML（需要yq工具）
+          if command -v yq > /dev/null 2>&1; then
+            yq --version
+            if yq e '.' dist/clash.yaml > /dev/null 2>&1; then
+              echo "YAML syntax appears valid"
+            else
+              echo "Warning: YAML syntax check failed (may still be valid)"
+            fi
+          fi
+        else
+          echo "Error: Final file is empty!"
+          exit 1
+        fi
+        
+    - name: Install yq for YAML validation (可选)
+      if: always()
+      run: |
+        # 安装yq用于YAML验证（可选步骤）
+        sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+        sudo chmod a+x /usr/local/bin/yq
+        yq --version
+        
+    - name: Commit and push changes
+      run: |
+        # 配置git用户
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        # 只添加clash.yaml文件
+        git add dist/clash.yaml
+        
+        # 检查是否有更改
+        if git diff --staged --quiet; then
+          echo "No changes to dist/clash.yaml"
+        else
+          # 获取当前时间
+          TIMESTAMP=$(date +'%Y-%m-%d %H:%M:%S')
+          
+          # 提交并推送
+          git commit -m "🔄 Update clash.yaml [${TIMESTAMP}]"
+          git push origin HEAD:${{ github.ref_name }}
+          
+          echo "Changes committed and pushed successfully"
+        fi
