@@ -89,4 +89,5 @@ jobs:
           echo "No changes to dist/clash.yaml"
         else
           git diff-index --quiet HEAD || git commit -m "chore: update clash.yaml"
+          git push
         fi
