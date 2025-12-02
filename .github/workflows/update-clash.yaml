@@ -3,7 +3,7 @@ name: 更新clash
 on:
   schedule:
     - cron: '0 */6 * * *'
-    workflow_dispatch:
+  workflow_dispatch:
 jobs:
   update-clash:
     runs-on: ubuntu-latest
