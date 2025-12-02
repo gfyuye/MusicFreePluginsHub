@@ -4,6 +4,7 @@ on:
   schedule:
     # 每6小时运行一次（UTC时间）
     - cron: '0 */6 * * *'
+    workflow_dispatch:
 jobs:
   update-clash:
     runs-on: ubuntu-latest
