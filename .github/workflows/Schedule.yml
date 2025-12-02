@@ -1,4 +1,4 @@
-name: Scheduled Python Worker
+name: 更新mf源
 
 on:
   schedule:
