@@ -1,0 +1,23 @@
+{
+	"lives": [
+		{
+			"name": "文内",
+			"type": 0,
+			"url": "https://mf.marketingmaster.bid/iptv.m3u",
+			"playerType": 1
+		},
+		{
+			"name": "IPV6_多线路",
+			"type": 0,
+			"url": "https://raw.githubusercontent.com/wwb521/live/main/tv.m3u",
+			"playerType": 1,
+			"logo": "https://live.fanmingming.com/tv/{name}.png"
+		},		
+		{
+			"name": "文外",
+			"type": 0,
+			"url": "https://mf.marketingmaster.bid/iptv2.m3u",
+			"playerType": 1
+		}
+	]
+}
