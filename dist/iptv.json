@@ -27,41 +27,42 @@
 			"logo": "https://live.fanmingming.com/tv/{name}.png"
 		},	
 		{
-			"name": "电视直播",
+			"name": "Gather「IPTV」",
 			"type": 0,
 			"url": "https://tv.iill.top/m3u/Gather",
-			"playerType": 1,
-			"logo": "https://live.fanmingming.com/tv/{name}.png"
+            "epg":"https://epg.iill.top/epg.xml",
+            "ua": "okhttp/3.8.1",
+            "timeout": 20,
+            "playerType": 1
 		},	
 		{
 			"name": "网络直播",
 			"type": 0,
 			"url": "https://m.iill.top/Live.m3u",
-			"playerType": 1,
-			"logo": "https://live.fanmingming.com/tv/{name}.png"
+            "ua": "okhttp/3.8.1",
+            "timeout": 20,
+            "playerType": 1
 		},
 		{
 			"name": "myTV",
 			"type": 0,
-			"url": "https://tv.iill.top/m3u/MyTV",
-			"playerType": 1,
-			"logo": "https://live.fanmingming.com/tv/{name}.png"
+            "url": "https://tv.iill.top/m3u/MyTV",
+            "epg":"https://epg.iill.top/epg.xml",
+            "ua": "okhttp/3.8.1",
+            "timeout": 20,
+            "playerType": 1
 		},	
 		{
 			"name": "体育直播",
 			"type": 0,
-			"url": "https://tv.iill.top/m3u/Sport",
-			"playerType": 1,
-			"logo": "https://live.fanmingming.com/tv/{name}.png"
-		},	
-		{
-			"name": "影视json",
-			"type": 0,
-			"url": "https://tv.iill.top/json/Gather",
-			"playerType": 1,
-			"logo": "https://live.fanmingming.com/tv/{name}.png"
-		}			
+            "url": "https://tv.iill.top/m3u/Sport",
+            "epg":"https://epg.iill.top/epg.xml",
+            "ua": "okhttp/3.8.1",
+            "timeout": 20,
+            "playerType": 1
+		}	
 	]
 }
+
 
 
