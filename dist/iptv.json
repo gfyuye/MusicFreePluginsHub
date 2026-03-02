@@ -18,6 +18,14 @@
 			"type": 0,
 			"url": "https://mf.marketingmaster.bid/iptv2.m3u",
 			"playerType": 1
+		},
+		{
+			"name": "江苏移动",
+			"type": 0,
+			"url": "https://mf.marketingmaster.bid/jsyd.m3u",
+			"playerType": 1,
+			"logo": "https://live.fanmingming.com/tv/{name}.png"
 		}
 	]
 }
+
