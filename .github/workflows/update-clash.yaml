@@ -2,7 +2,7 @@ name: 更新clash
 
 on:
   schedule:
-    - cron: "1 */6 * * *"
+    - cron: "1 */3 * * *"
   workflow_dispatch:
 jobs:
   update-clash:
