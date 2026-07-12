@@ -161,19 +161,19 @@ http://ott.mobaibox.com/PLTV/4/224/3221227598/index.m3u8
 http://ott.mobaibox.com/PLTV/4/224/3221227389/index.m3u8
 #EXTINF:-1 tvg-name="贾汪新闻" tvg-logo="https://live.fanmingming.com/tv/贾汪新闻.png" group-title="卫视频道",贾汪新闻
 http://ott.mobaibox.com/PLTV/4/224/3221227385/index.m3u8
-#EXTINF:-1 tvg-name="江苏城市" tvg-logo="https://live.fanmingming.com/tv/江苏城市.png" group-title="卫视频道",江苏城市
+#EXTINF:-1 tvg-name="江苏城市" tvg-logo="https://live.fanmingming.com/tv/江苏城市.png" group-title="江苏卫视",江苏城市
 http://ott.mobaibox.com/PLTV/4/224/3221225929/index.m3u8
-#EXTINF:-1 tvg-name="江苏教育" tvg-logo="https://live.fanmingming.com/tv/江苏教育.png" group-title="卫视频道",江苏教育
+#EXTINF:-1 tvg-name="江苏教育" tvg-logo="https://live.fanmingming.com/tv/江苏教育.png" group-title="江苏卫视",江苏教育
 http://ott.mobaibox.com/PLTV/4/224/3221228613/index.m3u8
-#EXTINF:-1 tvg-name="江苏体育休闲" tvg-logo="https://live.fanmingming.com/tv/江苏体育休闲.png" group-title="卫视频道",江苏体育休闲
+#EXTINF:-1 tvg-name="江苏体育休闲" tvg-logo="https://live.fanmingming.com/tv/江苏体育休闲.png" group-title="江苏卫视",江苏体育休闲
 http://ott.mobaibox.com/PLTV/4/224/3221225935/index.m3u8
-#EXTINF:-1 tvg-name="江苏卫视" tvg-logo="https://live.fanmingming.com/tv/江苏卫视.png" group-title="卫视频道",江苏卫视
+#EXTINF:-1 tvg-name="江苏卫视" tvg-logo="https://live.fanmingming.com/tv/江苏卫视.png" group-title="江苏卫视",江苏卫视
 http://ott.mobaibox.com/PLTV/4/224/3221227439/index.m3u8
-#EXTINF:-1 tvg-name="江苏新闻" tvg-logo="https://live.fanmingming.com/tv/江苏新闻.png" group-title="卫视频道",江苏新闻
+#EXTINF:-1 tvg-name="江苏新闻" tvg-logo="https://live.fanmingming.com/tv/江苏新闻.png" group-title="江苏卫视",江苏新闻
 http://ott.mobaibox.com/PLTV/4/224/3221225925/index.m3u8
-#EXTINF:-1 tvg-name="江苏影视" tvg-logo="https://live.fanmingming.com/tv/江苏影视.png" group-title="卫视频道",江苏影视
+#EXTINF:-1 tvg-name="江苏影视" tvg-logo="https://live.fanmingming.com/tv/江苏影视.png" group-title="江苏卫视",江苏影视
 http://ott.mobaibox.com/PLTV/4/224/3221228728/index.m3u8
-#EXTINF:-1 tvg-name="江苏综艺" tvg-logo="https://live.fanmingming.com/tv/江苏综艺.png" group-title="卫视频道",江苏综艺
+#EXTINF:-1 tvg-name="江苏综艺" tvg-logo="https://live.fanmingming.com/tv/江苏综艺.png" group-title="江苏卫视",江苏综艺
 http://ott.mobaibox.com/PLTV/4/224/3221225931/index.m3u8
 #EXTINF:-1 tvg-name="江西卫视" tvg-logo="https://live.fanmingming.com/tv/江西卫视.png" group-title="卫视频道",江西卫视
 http://ott.mobaibox.com/PLTV/4/224/3221228109/index.m3u8
@@ -289,15 +289,15 @@ http://ott.mobaibox.com/PLTV/4/224/3221228435/index.m3u8
 http://ott.mobaibox.com/PLTV/4/224/3221228433/index.m3u8
 #EXTINF:-1 tvg-name="盐城3" tvg-logo="https://live.fanmingming.com/tv/盐城3.png" group-title="卫视频道",盐城3
 http://ott.mobaibox.com/PLTV/4/224/3221228436/index.m3u8
-#EXTINF:-1 tvg-name="扬州宝应新闻综合" tvg-logo="https://live.fanmingming.com/tv/扬州宝应新闻综合.png" group-title="卫视频道",扬州宝应新闻综合
+#EXTINF:-1 tvg-name="扬州宝应新闻综合" tvg-logo="https://live.fanmingming.com/tv/扬州宝应新闻综合.png" group-title="扬州本地",扬州宝应新闻综合
 http://ott.mobaibox.com/PLTV/4/224/3221228007/index.m3u8
-#EXTINF:-1 tvg-name="扬州邗江" tvg-logo="https://live.fanmingming.com/tv/扬州邗江.png" group-title="卫视频道",扬州邗江
+#EXTINF:-1 tvg-name="扬州邗江" tvg-logo="https://live.fanmingming.com/tv/扬州邗江.png" group-title="扬州本地",扬州邗江
 http://ott.mobaibox.com/PLTV/4/224/3221227867/index.m3u8
-#EXTINF:-1 tvg-name="扬州江都" tvg-logo="https://live.fanmingming.com/tv/扬州江都.png" group-title="卫视频道",扬州江都
+#EXTINF:-1 tvg-name="扬州江都" tvg-logo="https://live.fanmingming.com/tv/扬州江都.png" group-title="扬州本地",扬州江都
 http://ott.mobaibox.com/PLTV/4/224/3221228323/index.m3u8
-#EXTINF:-1 tvg-name="扬州江都民生" tvg-logo="https://live.fanmingming.com/tv/扬州江都民生.png" group-title="卫视频道",扬州江都民生
+#EXTINF:-1 tvg-name="扬州江都民生" tvg-logo="https://live.fanmingming.com/tv/扬州江都民生.png" group-title="扬州本地",扬州江都民生
 http://ott.mobaibox.com/PLTV/4/224/3221228205/index.m3u8
-#EXTINF:-1 tvg-name="扬州江都新闻" tvg-logo="https://live.fanmingming.com/tv/扬州江都新闻.png" group-title="卫视频道",扬州江都新闻
+#EXTINF:-1 tvg-name="扬州江都新闻" tvg-logo="https://live.fanmingming.com/tv/扬州江都新闻.png" group-title="扬州本地",扬州江都新闻
 http://ott.mobaibox.com/PLTV/4/224/3221228155/index.m3u8
 #EXTINF:-1 tvg-name="优漫卡通" tvg-logo="https://live.fanmingming.com/tv/优漫卡通.png" group-title="卫视频道",优漫卡通
 http://ott.mobaibox.com/PLTV/4/224/3221227577/index.m3u8
@@ -346,6 +346,8 @@ http://ott.mobaibox.com/PLTV/4/224/3221228838/index.m3u8
 #EXTINF:-1 tvg-name="湖南卫视4K超高清" tvg-logo="https://live.fanmingming.com/tv/湖南卫视4K超高清.png" group-title="4K频道",湖南卫视4K超高清
 http://ott.mobaibox.com/PLTV/4/224/3221228883/index.m3u8
 #EXTINF:-1 tvg-name="江苏卫视4K超高清" tvg-logo="https://live.fanmingming.com/tv/江苏卫视4K超高清.png" group-title="4K频道",江苏卫视4K超高清
+http://ott.mobaibox.com/PLTV/4/224/3221228897/index.m3u8
+#EXTINF:-1 tvg-name="江苏卫视4K超高清" tvg-logo="https://live.fanmingming.com/tv/江苏卫视4K超高清.png" group-title="江苏本地",江苏卫视4K超高清
 http://ott.mobaibox.com/PLTV/4/224/3221228897/index.m3u8
 #EXTINF:-1 tvg-name="山东卫视4K超高清" tvg-logo="https://live.fanmingming.com/tv/山东卫视4K超高清.png" group-title="4K频道",山东卫视4K超高清
 http://ott.mobaibox.com/PLTV/4/224/3221228880/index.m3u8
