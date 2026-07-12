@@ -28,38 +28,38 @@
 		},	
 		{
 			"name": "Gather「IPTV」",
-			"type": 0,
+			"type": 3,
 			"url": "https://iptv.yang-1989.xyz/playlist.m3u",
             "epg":"https://material.yang-1989.xyz/epg.xml.gz",
             "ua": "okhttp/3.8.1",
-            "timeout": 20,
-            "playerType": 1
+            "timeout": 10,
+            "playerType": 2
 		},	
 		{
 			"name": "网络直播",
-			"type": 0,
+			"type": 3,
 			"url": "https://live.yang-1989.eu.org/Live.m3u",
             "ua": "okhttp/3.8.1",
-            "timeout": 20,
-            "playerType": 1
+            "timeout": 10,
+            "playerType": 2
 		},
 		{
 			"name": "myTV",
-			"type": 0,
+			"type": 3,
             "url": "https://iptv.yang-1989.xyz/myTV/playlist.m3u",
             "epg":"https://material.yang-1989.xyz/epg.xml.gz",
             "ua": "okhttp/3.8.1",
-            "timeout": 20,
-            "playerType": 1
+            "timeout": 10,
+            "playerType": 2
 		},	
 		{
 			"name": "体育直播",
-			"type": 0,
+			"type": 3,
             "url": "https://cdn-1.yang-1989.xyz/sprt/playlist.m3u",
             "epg":"https://epg.iill.top/epg.xml",
             "ua": "okhttp/3.8.1",
-            "timeout": 20,
-            "playerType": 1
+            "timeout": 10,
+            "playerType": 2
 		}	
 	]
 }
