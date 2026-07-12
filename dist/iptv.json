@@ -1,68 +1,97 @@
 {
-	"lives": [
-		{
-			"name": "文内",
-			"type": 0,
-			"url": "https://mf.marketingmaster.bid/iptv.m3u",
-			"playerType": 1
-		},	
-		{
-			"name": "文外",
-			"type": 0,
-			"url": "https://mf.marketingmaster.bid/iptv2.m3u",
-			"playerType": 1
-		},
-		{
-			"name": "江苏移动",
-			"type": 0,
-			"url": "https://mf.marketingmaster.bid/jsyd.m3u",
-			"playerType": 1,
-			"logo": "https://live.fanmingming.com/tv/{name}.png"
-		},
-		{
-			"name": "IPV6_多线路",
-			"type": 0,
-			"url": "https://raw.githubusercontent.com/wwb521/live/main/tv.m3u",
-			"playerType": 1,
-			"logo": "https://live.fanmingming.com/tv/{name}.png"
-		},	
-		{
-			"name": "Gather「IPTV」",
-			"type": 3,
-			"url": "https://iptv.yang-1989.xyz/playlist.m3u",
-            "epg":"https://material.yang-1989.xyz/epg.xml.gz",
-            "ua": "okhttp/3.8.1",
-            "timeout": 10,
-            "playerType": 2
-		},	
-		{
-			"name": "网络直播",
-			"type": 3,
-			"url": "https://live.yang-1989.eu.org/Live.m3u",
-            "ua": "okhttp/3.8.1",
-            "timeout": 10,
-            "playerType": 2
-		},
-		{
-			"name": "myTV",
-			"type": 3,
-            "url": "https://iptv.yang-1989.xyz/myTV/playlist.m3u",
-            "epg":"https://material.yang-1989.xyz/epg.xml.gz",
-            "ua": "okhttp/3.8.1",
-            "timeout": 10,
-            "playerType": 2
-		},	
-		{
-			"name": "体育直播",
-			"type": 3,
-            "url": "https://cdn-1.yang-1989.xyz/sprt/playlist.m3u",
-            "epg":"https://epg.iill.top/epg.xml",
-            "ua": "okhttp/3.8.1",
-            "timeout": 10,
-            "playerType": 2
-		}	
-	]
+  "lives": [
+    {
+      "name": "文内",
+      "type": 0,
+      "url": "https://mf.marketingmaster.bid/iptv.m3u",
+      "playerType": 1
+    },
+    {
+      "name": "文外",
+      "type": 0,
+      "url": "https://mf.marketingmaster.bid/iptv2.m3u",
+      "playerType": 1
+    },
+    {
+      "name": "江苏移动",
+      "type": 0,
+      "url": "https://mf.marketingmaster.bid/jsyd.m3u",
+      "playerType": 1,
+      "logo": "https://live.fanmingming.com/tv/{name}.png"
+    },
+    {
+      "name": "IPV6_多线路",
+      "type": 0,
+      "url": "https://raw.githubusercontent.com/wwb521/live/main/tv.m3u",
+      "playerType": 1,
+      "logo": "https://live.fanmingming.com/tv/{name}.png"
+    },
+    {
+      "name": "Gather「IPTV」",
+      "type": 3,
+      "url": "https://iptv.yang-1989.xyz/playlist.m3u",
+      "epg": "https://material.yang-1989.xyz/epg.xml.gz",
+      "ua": "okhttp/3.8.1",
+      "timeout": 10,
+      "playerType": 2
+    },
+    {
+      "name": "网络直播",
+      "type": 3,
+      "url": "https://live.yang-1989.eu.org/Live.m3u",
+      "ua": "okhttp/3.8.1",
+      "timeout": 10,
+      "playerType": 2
+    },
+    {
+      "name": "myTV",
+      "type": 3,
+      "url": "https://iptv.yang-1989.xyz/myTV/playlist.m3u",
+      "epg": "https://material.yang-1989.xyz/epg.xml.gz",
+      "ua": "okhttp/3.8.1",
+      "timeout": 10,
+      "playerType": 2
+    },
+    {
+      "name": "体育直播",
+      "type": 3,
+      "url": "https://cdn-1.yang-1989.xyz/sprt/playlist.m3u",
+      "epg": "https://epg.iill.top/epg.xml",
+      "ua": "okhttp/3.8.1",
+      "timeout": 10,
+      "playerType": 2
+    },
+    {
+      "name": "虎牙一起看",
+      "type": 0,
+      "url": "https://sub.ottiptv.cc/huyayqk.m3u",
+      "playerType": 2,
+      "timeout": 10,
+      "ua": "okHttp/Mod-1.5.0.0"
+    },
+    {
+      "name": "斗鱼一起看",
+      "type": 0,
+      "url": "https://sub.ottiptv.cc/douyuyqk.m3u",
+      "playerType": 2,
+      "timeout": 10,
+      "ua": "okHttp/Mod-1.5.0.0"
+    },
+    {
+      "name": "B站直播",
+      "type": 0,
+      "url": "https://sub.ottiptv.cc/bililive.m3u",
+      "playerType": 2,
+      "timeout": 10,
+      "ua": "okHttp/Mod-1.5.0.0"
+    },
+    {
+      "name": "YY轮播",
+      "type": 0,
+      "url": "https://sub.ottiptv.cc/yylunbo.m3u",
+      "playerType": 2,
+      "timeout": 10,
+      "ua": "okHttp/Mod-1.5.0.0"
+    }
+  ]
 }
-
-
-
