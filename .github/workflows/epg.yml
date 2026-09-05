@@ -1,0 +1,54 @@
+name: 拉取EPG数据
+
+on:
+  schedule:
+    # 每天 UTC 时间 17:00 执行（北京时间 凌晨1:00）
+    - cron: '0 17 * * *'
+  # 支持手动触发
+  workflow_dispatch:
+
+jobs:
+  fetch-epg:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 创建dist目录
+        run: |
+          mkdir -p dist
+
+      - name: 下载EPG文件
+        run: |
+          curl -L -o dist/e.xml.gz https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/e.xml.gz
+
+      - name: 解压（可选）
+        run: |
+          # 如果需要解压，取消下面的注释
+          # gunzip -f dist/e.xml.gz
+          # 如果保留压缩包，这个步骤可以跳过
+          
+      - name: 列出文件（确认下载成功）
+        run: |
+          ls -la dist/
+          if [ -f dist/e.xml.gz ]; then
+            echo "✅ 下载成功，文件大小："
+            du -h dist/e.xml.gz
+          else
+            echo "❌ 下载失败"
+            exit 1
+          fi
+
+      - name: 提交并推送
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/
+          # 检查是否有变更
+          if git diff --staged --quiet; then
+            echo "没有新的变更，跳过提交"
+          else
+            git commit -m "🤖 自动更新EPG数据 [$(date +'%Y-%m-%d %H:%M:%S')]"
+            git push
+          fi
