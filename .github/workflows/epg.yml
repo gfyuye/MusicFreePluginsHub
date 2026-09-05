@@ -3,7 +3,7 @@ name: 拉取EPG数据
 on:
   schedule:
     # 每天 UTC 时间 17:00 执行（北京时间 凌晨1:00）
-    - cron: '0 17 * * *'
+    - cron: '0 18 * * *'
   # 支持手动触发
   workflow_dispatch:
 
@@ -21,7 +21,7 @@ jobs:
 
       - name: 下载EPG文件
         run: |
-          curl -L -o dist/e.xml https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/e.xml
+          curl -L -o dist/e.xml.gz https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/e.xml.gz
 
       - name: 解压（可选）
         run: |
@@ -32,9 +32,9 @@ jobs:
       - name: 列出文件（确认下载成功）
         run: |
           ls -la dist/
-          if [ -f dist/e.xml ]; then
+          if [ -f dist/e.xml.gz ]; then
             echo "✅ 下载成功，文件大小："
-            du -h dist/e.xml
+            du -h dist/e.xml.gz
           else
             echo "❌ 下载失败"
             exit 1
