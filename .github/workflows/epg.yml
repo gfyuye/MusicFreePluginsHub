@@ -21,7 +21,7 @@ jobs:
 
       - name: 下载EPG文件
         run: |
-          curl -L -o dist/e.xml.gz https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/e.xml.gz
+          curl -L -o dist/e.xml https://raw.githubusercontent.com/CCSH/IPTV/refs/heads/main/e.xml
 
       - name: 解压（可选）
         run: |
@@ -32,9 +32,9 @@ jobs:
       - name: 列出文件（确认下载成功）
         run: |
           ls -la dist/
-          if [ -f dist/e.xml.gz ]; then
+          if [ -f dist/e.xml ]; then
             echo "✅ 下载成功，文件大小："
-            du -h dist/e.xml.gz
+            du -h dist/e.xml
           else
             echo "❌ 下载失败"
             exit 1
