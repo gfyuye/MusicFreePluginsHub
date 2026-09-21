@@ -2,34 +2,73 @@
 const fs = require('fs');
 const path = require('path');
 
-// 从 Cloudflare Pages 自动注入的环境变量中获取部署域名[citation:16]
-// 如果你绑定了自定义域名，这里需要改成硬编码你的域名，或者用你自己的环境变量
-const baseUrl = process.env.CF_PAGES_URL || 'https://你的自定义域名';
+// 优先使用自定义域名，否则用 Cloudflare Pages 默认域名
+const baseUrl = process.env.CUSTOM_DOMAIN
+  ? `https://${process.env.CUSTOM_DOMAIN}`
+  : (process.env.CF_PAGES_URL || 'https://你的项目名.pages.dev');
+
 const accessKey = process.env.TOKEN_ACCESS_KEY || '你的默认暗号';
 
 // 构造新的 token URL
 const newTokenUrl = `${baseUrl}/lib/token.json?key=${accessKey}`;
 
-// 目标配置文件路径（按你的实际情况修改）
-const configPath = path.join(__dirname, 'dist', 'tvbox', 'config.json');
+// 目标目录：dist/tvbox/ 下的所有 JSON 文件
+const tvboxDir = path.join(__dirname, 'dist', 'tvbox');
 
 console.log(`[Build] 正在替换令牌地址为: ${newTokenUrl}`);
 
-try {
-    let content = fs.readFileSync(configPath, 'utf8');
+// 递归遍历目录，找出所有 .json 文件
+function findJsonFiles(dir) {
+  if (!fs.existsSync(dir)) {
+    console.log(`[Build] 警告：目录不存在: ${dir}`);
+    return [];
+  }
 
-    // 执行替换：把所有 ./lib/token.json 替换为新的完整 URL
-    // 注意：这里用简单的字符串替换，确保你的配置中路径是统一的
+  const results = [];
+  const items = fs.readdirSync(dir);
+
+  for (const item of items) {
+    const fullPath = path.join(dir, item);
+    const stat = fs.statSync(fullPath);
+
+    if (stat.isDirectory()) {
+      results.push(...findJsonFiles(fullPath));
+    } else if (item.endsWith('.json')) {
+      results.push(fullPath);
+    }
+  }
+
+  return results;
+}
+
+// 执行替换
+const jsonFiles = findJsonFiles(tvboxDir);
+
+if (jsonFiles.length === 0) {
+  console.log('[Build] 警告：没有找到任何 JSON 文件。');
+  process.exit(0);
+}
+
+let replacedCount = 0;
+
+for (const file of jsonFiles) {
+  try {
+    let content = fs.readFileSync(file, 'utf8');
     const originalContent = content;
+
+    // 把所有 ./lib/token.json 替换为新的完整 URL
     content = content.replace(/\.\/lib\/token\.json/g, newTokenUrl);
 
-    if (content === originalContent) {
-        console.log('[Build] 警告：没有找到 ./lib/token.json，请检查路径是否正确。');
+    if (content !== originalContent) {
+      fs.writeFileSync(file, content, 'utf8');
+      console.log(`[Build] ✅ 已替换: ${path.relative(__dirname, file)}`);
+      replacedCount++;
     } else {
-        fs.writeFileSync(configPath, content, 'utf8');
-        console.log('[Build] 令牌地址替换完成。');
+      console.log(`[Build] ⏭️ 跳过（无匹配）: ${path.relative(__dirname, file)}`);
     }
-} catch (err) {
-    console.error('[Build] 替换失败:', err.message);
-    process.exit(1); // 让构建失败，避免部署错误配置
+  } catch (err) {
+    console.error(`[Build] ❌ 替换失败: ${path.relative(__dirname, file)}`, err.message);
+  }
 }
+
+console.log(`[Build] 完成，共替换 ${replacedCount}/${jsonFiles.length} 个文件。`);
