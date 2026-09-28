@@ -13,65 +13,37 @@ export async function onRequest(context) {
     return new Response('Not Found', { status: 404 });
   }
 
-  // ===== 读取各平台凭证 =====
+  // ===== 扁平结构：凭证直接铺在顶层 =====
   const tokenPool = {
-    // 阿里云盘（32位 token + 280位 open_token）
-    ali: {
-      token: context.env.ALI_TOKEN || '',
-      open_token: context.env.ALI_OPEN_TOKEN || '',
-    },
+    // 阿里云盘
+    token: context.env.ALI_TOKEN || '',
+    open_token: context.env.ALI_OPEN_TOKEN || '',
 
-    // 夸克网盘（Cookie 字符串）
-    quark: {
-      cookie: context.env.QUARK_COOKIE || '',
-    },
+    // 夸克网盘
+    quark_cookie: context.env.QUARK_COOKIE || '',
 
-    // UC 网盘（Cookie 字符串）
-    uc: {
-      cookie: context.env.UC_COOKIE || '',
-    },
+    // UC 网盘
+    uc_cookie: context.env.UC_COOKIE || '',
 
-    // 115 网盘（Cookie 字符串，关键字段：UID、CID、SEID、KID）
-    "115": {
-      cookie: context.env.COOKIE_115 || '',
-    },
+    // 115 网盘
+    pan115_cookie: context.env.COOKIE_115 || '',
 
-    // 迅雷网盘（用户名 + 密码）
-    thunder: {
-      username: context.env.THUNDER_USERNAME || '',
-      password: context.env.THUNDER_PASSWORD || '',
-    },
+    // 迅雷网盘
+    thunder_username: context.env.THUNDER_USERNAME || '',
+    thunder_password: context.env.THUNDER_PASSWORD || '',
 
-    // PikPak（用户名 + 密码）
-    pikpak: {
-      username: context.env.PIKPAK_USERNAME || '',
-      password: context.env.PIKPAK_PASSWORD || '',
-    },
+    // PikPak
+    pikpak_username: context.env.PIKPAK_USERNAME || '',
+    pikpak_password: context.env.PIKPAK_PASSWORD || '',
 
-    // 天翼云盘（用户名 + 密码）
-    cloud189: {
-      username: context.env.CLOUD189_USERNAME || '',
-      password: context.env.CLOUD189_PASSWORD || '',
-    },
+    // Bilibili
+    bili_cookie: context.env.BILI_COOKIE || '',
 
-    // 123 网盘（用户名 + 密码）
-    "123pan": {
-      username: context.env.PAN123_USERNAME || '',
-      password: context.env.PAN123_PASSWORD || '',
-    },
+    // YouTube
+    youtube_token: context.env.YOUTUBE_TOKEN || '',
 
-    // Bilibili（Cookie 字符串，关键字段：SESSDATA、bili_jct、buvid3）
-    bili: {
-      cookie: context.env.BILI_COOKIE || '',
-    },
-
-    // YouTube（OAuth 2.0 令牌）
-    youtube: {
-      access_token: context.env.YOUTUBE_ACCESS_TOKEN || '',
-      refresh_token: context.env.YOUTUBE_REFRESH_TOKEN || '',
-      token_type: 'Bearer',
-      expiry: context.env.YOUTUBE_TOKEN_EXPIRY || '',
-    },
+    // 可选：网盘优先顺序
+    pan_order: 'ali|quark|uc|115|thunder|pikpak',
   };
 
   // ===== 返回 JSON =====
