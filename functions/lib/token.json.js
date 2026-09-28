@@ -43,7 +43,7 @@ export async function onRequest(context) {
     youtube_token: context.env.YOUTUBE_TOKEN || '',
 
     // 可选：网盘优先顺序
-    pan_order: 'ali|quark|uc|115|thunder|pikpak',
+    pan_order: 'quark|uc|115|ali|thunder|pikpak',
   };
 
   // ===== 返回 JSON =====
